@@ -152,6 +152,79 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-设计模式-Strategy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Strategy/">设计模式_Strategy</a>
+    </h1>
+  
+
+        
+        <a href="/2021/04/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Strategy/" class="archive-article-date">
+  	<time datetime="2021-04-18T03:44:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>一直有看到过策略模式的身影，而且也被提醒过策略模式的确在工作中用到。但是人懒没有去看设计模式，当时也没有觉着策略模式看起来非常好玩且很有用。今天一看策略模式突然就想到了策略模式用在了什么地方，刚好结合实际场景来学习一下。<br>整体看下来设计模式比较容易理解，而且运用的比较广泛，学习一下非常有用。</p>
+<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>编译器：VS2019<br>语言：C#</p>
+<h2 id="Sample-From-Refactoringguru"><a href="#Sample-From-Refactoringguru" class="headerlink" title="Sample (From Refactoringguru)"></a>Sample (From Refactoringguru)</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Strategy</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Context</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> IStrategy _strategy;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Context</span>(<span class="params"></span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Context</span>(<span class="params">IStrategy strategy</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            _strategy = strategy;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetStrategy</span>(<span class="params">IStrategy strategy</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._strategy = strategy;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoSomethingBussinessLogic</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"Context: Sorting data using the strategy (not sure how it'll do it)"</span>);</span><br><span class="line">            <span class="keyword">var</span> result = <span class="keyword">this</span>._strategy.DoAlgorithmn(<span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt; &#123; <span class="string">"a"</span>, <span class="string">"i"</span>, <span class="string">"f"</span>, <span class="string">"z"</span>, <span class="string">"e"</span> &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">string</span> resultStr = <span class="keyword">string</span>.Empty;</span><br><span class="line">            <span class="keyword">foreach</span>(<span class="keyword">var</span> ele <span class="keyword">in</span> result <span class="keyword">as</span> List&lt;<span class="keyword">string</span>&gt;)</span><br><span class="line">            &#123;</span><br><span class="line">                resultStr += ele + <span class="string">','</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(resultStr);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title">IStrategy</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">object</span> <span class="title">DoAlgorithmn</span>(<span class="params"><span class="keyword">object</span> data</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">ConcreteStrategyA</span> : <span class="title">IStrategy</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">object</span> <span class="title">DoAlgorithmn</span>(<span class="params"><span class="keyword">object</span> data</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> list = data <span class="keyword">as</span> List&lt;<span class="keyword">string</span>&gt;;</span><br><span class="line">            list.Sort();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">ConcreteStrategyB</span> : <span class="title">IStrategy</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">object</span> <span class="title">DoAlgorithmn</span>(<span class="params"><span class="keyword">object</span> data</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> list = data <span class="keyword">as</span> List&lt;<span class="keyword">string</span>&gt;;</span><br><span class="line">            list.Sort();</span><br><span class="line">            list.Reverse();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> context = <span class="keyword">new</span> Context();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">"Client: Normal sorting."</span>);</span><br><span class="line">            context.SetStrategy(<span class="keyword">new</span> ConcreteStrategyA());</span><br><span class="line">            context.DoSomethingBussinessLogic();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">"Client: Reverse sorting."</span>);</span><br><span class="line">            context.SetStrategy(<span class="keyword">new</span> ConcreteStrategyB());</span><br><span class="line">            context.DoSomethingBussinessLogic();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="工作中可能的应用场景"><a href="#工作中可能的应用场景" class="headerlink" title="工作中可能的应用场景"></a>工作中可能的应用场景</h2><p>场景一：<br>UiaPlayer</p>
+<p>此处应该有UML图</p>
+<p>场景二：<br>UISource Determinenator</p>
+<p>场景三：<br>找个C++这一端的</p>
+<h2 id="Strategy的优缺点"><a href="#Strategy的优缺点" class="headerlink" title="Strategy的优缺点"></a>Strategy的优缺点</h2><p>优点：<br>运行时切换对象内的算法；算法实现和使用隔离；可以使用组合来代替集成；开闭原则（无需改动上下文就可引进新策略）</p>
+<p>缺点：<br>算法过少会让程序过于复杂；客户端需要知晓策略的不同并选择合适的策略；……</p>
+<h2 id="相关-相近模式"><a href="#相关-相近模式" class="headerlink" title="相关/相近模式"></a>相关/相近模式</h2><p>桥接模式、状态模式、组合模式、命令模式、装饰模式、模板方法模式</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Strategy/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-设计模式-Singleton" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -816,76 +889,9 @@
 
 
   
-    <article id="post-一个WindowsAutomationAPI的测试用例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/19/%E4%B8%80%E4%B8%AAWindowsAutomationAPI%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">一个WindowsAutomationAPI的测试用例</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/19/%E4%B8%80%E4%B8%AAWindowsAutomationAPI%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/" class="archive-article-date">
-  	<time datetime="2020-04-19T13:44:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>这个测试用例是从知乎专栏获取的，算的上是我学习自动化测试的一个开始，话不多，先从代码开始分析。<br>知乎专栏地址：<a href="https://zhuanlan.zhihu.com/p/22086217" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22086217</a><br>源码地址： <a href="https://github.com/whoissqr/fun_win/blob/master/Program.cs" target="_blank" rel="noopener">https://github.com/whoissqr/fun_win/blob/master/Program.cs</a></p>
-<p>运行该代码，会打开本机电脑自带的计算机程序，并执行“1+2=3”的操作。</p>
-<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>编译器：VS2010<br>语言：C#</p>
-<h2 id="代码及要注意的知识点"><a href="#代码及要注意的知识点" class="headerlink" title="代码及要注意的知识点"></a>代码及要注意的知识点</h2><p>微软文档提供了如何在测试应用程序中实现 UI 自动化，如下。这个案例大部分也是按照这个步骤来编写的。</p>
-<p><img src="UI%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A41.png" alt=""><br><img src="UI%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A42.png" alt=""></p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"><span class="keyword">using</span> System.Threading;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Automation;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2--知乎专栏的测试用例</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">WindowsAutomationAPISample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            System.Diagnostics.Process.Start(<span class="string">"calc"</span>);   <span class="comment">//打开计算器</span></span><br><span class="line">            Thread.Sleep(<span class="number">3000</span>); <span class="comment">//Sleep 3 sconds to wait calculator launched</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//Get the destkop element</span></span><br><span class="line">                AutomationElement elemDesktop = AutomationElement.RootElement;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//Search the Application main window by title from all children</span></span><br><span class="line">                PropertyCondition pCondition = <span class="keyword">new</span> PropertyCondition(AutomationElement.NameProperty, <span class="string">"计算器"</span>); <span class="comment">//设置搜索条件为NameProperty“计算器”</span></span><br><span class="line">                AutomationElement elemApplicationWindow = elemDesktop.FindFirst(TreeScope.Children, pCondition);    <span class="comment">//定位到“计算器”元素</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//Search the 1 button</span></span><br><span class="line">                AutomationElement btnOne = elemApplicationWindow.FindFirst(TreeScope.Subtree, <span class="keyword">new</span> PropertyCondition(AutomationElement.NameProperty, <span class="string">"一"</span>)); <span class="comment">//以搜索条件NameProperty“一”定位到“一”元素</span></span><br><span class="line">                InvokePattern invokePattern1 = btnOne.GetCurrentPattern(InvokePattern.Pattern) <span class="keyword">as</span> InvokePattern;    <span class="comment">//获取“一”控件的InvokePattern控件模式</span></span><br><span class="line">                invokePattern1.Invoke();    <span class="comment">//触发“一”控件</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//与上段代码类似，找到"加"元素并触发"加"控件</span></span><br><span class="line">                AutomationElement btnPlus = elemApplicationWindow.FindFirst(TreeScope.Subtree, <span class="keyword">new</span> PropertyCondition(AutomationElement.NameProperty, <span class="string">"加"</span>));</span><br><span class="line">                InvokePattern invokePatternP = btnPlus.GetCurrentPattern(InvokePattern.Pattern) <span class="keyword">as</span> InvokePattern;</span><br><span class="line">                invokePatternP.Invoke();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//与上段代码类似，找到"二"元素并触发"二"控件</span></span><br><span class="line">                AutomationElement btnTwo = elemApplicationWindow.FindFirst(TreeScope.Subtree, <span class="keyword">new</span> PropertyCondition(AutomationElement.NameProperty, <span class="string">"二"</span>));</span><br><span class="line">                InvokePattern invokePattern2 = btnTwo.GetCurrentPattern(InvokePattern.Pattern) <span class="keyword">as</span> InvokePattern;</span><br><span class="line">                invokePattern2.Invoke();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//与上段代码类似，找到"等于"元素并触发"等于"控件</span></span><br><span class="line">                AutomationElement btnE = elemApplicationWindow.FindFirst(TreeScope.Subtree, <span class="keyword">new</span> PropertyCondition(AutomationElement.NameProperty, <span class="string">"等于"</span>));</span><br><span class="line">                InvokePattern invokePatternE = btnE.GetCurrentPattern(InvokePattern.Pattern) <span class="keyword">as</span> InvokePattern;</span><br><span class="line">                invokePatternE.Invoke();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//Verify the result by get the Name property</span></span><br><span class="line">                AutomationElement labelResult = elemApplicationWindow.FindFirst(TreeScope.Subtree, <span class="keyword">new</span> PropertyCondition(AutomationElement.AutomationIdProperty, <span class="string">"CalculatorResults"</span>));<span class="comment">//以AutomationIdProperty为"CalculatorResults"的条件搜索结果显示控件</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//显示自动化测试的结果</span></span><br><span class="line">                <span class="keyword">if</span> (labelResult.Current.Name == <span class="string">"显示为 3"</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(<span class="string">"Test case pass!"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(<span class="string">"Test case fail!"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (Exception)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"Test case error!"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/19/%E4%B8%80%E4%B8%AAWindowsAutomationAPI%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 
