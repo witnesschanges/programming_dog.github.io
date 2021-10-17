@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>设计模式-Flyweight | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2021/page/2/index.html">
+  <meta name="description" content="简介享元模式（缓存， Flyweight，Cache），享元模式主要用在内存不足的场景下面，一般通过享元模式能够减少大量的使用内存。享元模式将数据分为两个部分：内部状态和外部状态。内部状态一般是静态的，不可变的，外部状态一般是动态的，可变的。内部状态需要的内存较大，且可被共享，这一部分被设置为Cache。 字典Dictionary有点享元模式的思想在里面。 享元模式一般会使用工厂模式来管理自己的缓">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-Flyweight">
+<meta property="og:url" content="http://yoursite.com/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Flyweight/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简介享元模式（缓存， Flyweight，Cache），享元模式主要用在内存不足的场景下面，一般通过享元模式能够减少大量的使用内存。享元模式将数据分为两个部分：内部状态和外部状态。内部状态一般是静态的，不可变的，外部状态一般是动态的，可变的。内部状态需要的内存较大，且可被共享，这一部分被设置为Cache。 字典Dictionary有点享元模式的思想在里面。 享元模式一般会使用工厂模式来管理自己的缓">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-17T06:00:13.000Z">
+<meta property="article:modified_time" content="2021-10-17T08:10:39.087Z">
 <meta property="article:author" content="Joe Li">
 <meta name="twitter:card" content="summary">
   
@@ -150,160 +154,164 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-设计模式-Flyweight" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式-Flyweight
+    </h1>
+  
+
+        
+        <a href="/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Flyweight/" class="archive-article-date">
+  	<time datetime="2021-10-17T06:00:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-17</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>享元模式（缓存， Flyweight，Cache），享元模式主要用在内存不足的场景下面，一般通过享元模式能够减少大量的使用内存。享元模式将数据分为两个部分：内部状态和外部状态。内部状态一般是静态的，不可变的，外部状态一般是动态的，可变的。内部状态需要的内存较大，且可被共享，这一部分被设置为Cache。</p>
+<p>字典Dictionary有点享元模式的思想在里面。</p>
+<p>享元模式一般会使用工厂模式来管理自己的缓存池。如果享元存在于缓存池，那就从缓存池中寻找到该享元并使用；如果不存在，那就创建一个新的享元。</p>
+<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>IDE: VS2019<br>语言： C#</p>
+<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> Newtonsoft.Json;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Flyweight</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Car</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> Owner &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> Number &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> Company &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> Model &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> Color &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Flyweight</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> Car _sharedState;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Flyweight</span>(<span class="params">Car car</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._sharedState = car;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Operation</span>(<span class="params">Car uniqueState</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">string</span> s = JsonConvert.SerializeObject(<span class="keyword">this</span>._sharedState);</span><br><span class="line">            <span class="keyword">string</span> u = JsonConvert.SerializeObject(uniqueState);</span><br><span class="line">            Console.WriteLine(<span class="string">$"Flyweight: Displaying shared <span class="subst">&#123;s&#125;</span> and unique <span class="subst">&#123;u&#125;</span> state."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FlyweightFactory</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> List&lt;Tuple&lt;Flyweight, <span class="keyword">string</span>&gt;&gt; flyweights = <span class="keyword">new</span> List&lt;Tuple&lt;Flyweight, <span class="keyword">string</span>&gt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">FlyweightFactory</span>(<span class="params"><span class="keyword">params</span> Car[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">foreach</span>(<span class="keyword">var</span> elem <span class="keyword">in</span> args)</span><br><span class="line">            &#123;</span><br><span class="line">                flyweights.Add(<span class="keyword">new</span> Tuple&lt;Flyweight, <span class="keyword">string</span>&gt;(<span class="keyword">new</span> Flyweight(elem), <span class="keyword">this</span>.getKey(elem)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">getKey</span>(<span class="params">Car key</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            List&lt;<span class="keyword">string</span>&gt; elements = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</span><br><span class="line"></span><br><span class="line">            elements.Add(key.Model);</span><br><span class="line">            elements.Add(key.Color);</span><br><span class="line">            elements.Add(key.Company);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(key.Owner != <span class="literal">null</span> &amp;&amp; key.Number != <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                elements.Add(key.Number);</span><br><span class="line">                elements.Add(key.Owner);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            elements.Sort();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">string</span>.Join(<span class="string">"_"</span>, elements);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Flyweight <span class="title">GetFlyweight</span>(<span class="params">Car sharedState</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">string</span> key = <span class="keyword">this</span>.getKey(sharedState);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(flyweights.Where(t =&gt; t.Item2 == key).Count() == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"FlyweightFactory: Can't find a flyweight, creating new one."</span>);</span><br><span class="line">                <span class="keyword">this</span>.flyweights.Add(<span class="keyword">new</span> Tuple&lt;Flyweight, <span class="keyword">string</span>&gt;(<span class="keyword">new</span> Flyweight(sharedState), key));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"FlyweightFactory: Reusing existing flyweight."</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.flyweights.Where(t =&gt; t.Item2 == key).FirstOrDefault().Item1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ListFlyweights</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> count = flyweights.Count;</span><br><span class="line">            Console.WriteLine(<span class="string">$"\nFlyweightFactory: I have <span class="subst">&#123;count&#125;</span> flyweights:"</span>);</span><br><span class="line">            <span class="keyword">foreach</span>(<span class="keyword">var</span> flyweight <span class="keyword">in</span> flyweights)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(flyweight.Item2);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> factory = <span class="keyword">new</span> FlyweightFactory(</span><br><span class="line">                <span class="keyword">new</span> Car &#123; Company = <span class="string">"Chevrolet"</span>, Model = <span class="string">"Camaro2018"</span>, Color = <span class="string">"pink"</span> &#125;,</span><br><span class="line">                <span class="keyword">new</span> Car &#123; Company = <span class="string">"Mercedes Benz"</span>, Model = <span class="string">"C300"</span>, Color = <span class="string">"black"</span> &#125;,</span><br><span class="line">                <span class="keyword">new</span> Car &#123; Company = <span class="string">"Mercedes Benz"</span>, Model = <span class="string">"C500"</span>, Color = <span class="string">"red"</span> &#125;,</span><br><span class="line">                <span class="keyword">new</span> Car &#123; Company = <span class="string">"BMW"</span>, Model = <span class="string">"M5"</span>, Color = <span class="string">"red"</span> &#125;,</span><br><span class="line">                <span class="keyword">new</span> Car &#123; Company = <span class="string">"BMW"</span>, Model = <span class="string">"X6"</span>, Color = <span class="string">"white"</span> &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            factory.ListFlyweights();</span><br><span class="line"></span><br><span class="line">            AddCarToPoliceDatabase(factory, <span class="keyword">new</span> Car</span><br><span class="line">            &#123;</span><br><span class="line">                Number = <span class="string">"CL234IR"</span>,</span><br><span class="line">                Owner = <span class="string">"James Doe"</span>,</span><br><span class="line">                Company = <span class="string">"BMW"</span>,</span><br><span class="line">                Model = <span class="string">"M5"</span>,</span><br><span class="line">                Color = <span class="string">"red"</span></span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            AddCarToPoliceDatabase(factory, <span class="keyword">new</span> Car</span><br><span class="line">            &#123;</span><br><span class="line">                Number = <span class="string">"CL234IR"</span>,</span><br><span class="line">                Owner = <span class="string">"James Doe"</span>,</span><br><span class="line">                Company = <span class="string">"BMW"</span>,</span><br><span class="line">                Model = <span class="string">"X1"</span>,</span><br><span class="line">                Color = <span class="string">"red"</span></span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            factory.ListFlyweights();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">AddCarToPoliceDatabase</span>(<span class="params">FlyweightFactory factory, Car car</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"\nClient: Adding a car to database."</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> flyweight = factory.GetFlyweight(<span class="keyword">new</span> Car &#123;</span><br><span class="line">                Color = car.Color,</span><br><span class="line">                Model = car.Model,</span><br><span class="line">                Company = car.Company</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            flyweight.Operation(car);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>UIA里面就使用到了享元。UIA在在寻找UI Element的时候会用到UI Element Tree。这个Tree比较大，加载会需要比较长的时间。这时候就先将Tree缓存下来，在UI Element Tree上面选择的时候就不会消耗大量内存。Tree只会在Capture Element动作发生时才会重新加载。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>可以将有大量相似部分的对象抽出归纳称为享元，大大地降低内存使用量。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>牺牲速度换内存。每次使用享元都需要额外执行寻找或者创建的操作；代码会变得复杂，因为将一个整体拆分成了多个部分。</p>
+<h2 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h2><p>使用享元模式实现组合模式树的共享叶节点以节省内存；<br>享元生成大量的小型对象，外观用一个对象来代表整个子系统。<br>享元和单例特别相像，都是为了将共同的数据部分共享，但他们本质不同。单例只能存在一个，享元可以存在多个；单例是可以变化的，但是享元Cache不能变化。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Decorator/" class="archive-article-date">
-  	<time datetime="2021-05-24T16:06:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Decorator/">设计模式-Decorator</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Flyweight/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Template/" class="archive-article-date">
-  	<time datetime="2021-05-04T07:58:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-04</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Adapter/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式-Adapter</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Template/">设计模式-Template</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Strategy/" class="archive-article-date">
-  	<time datetime="2021-04-18T03:44:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Strategy/">设计模式_Strategy</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Singleton/" class="archive-article-date">
-  	<time datetime="2021-04-11T08:03:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Singleton/">设计模式_Singleton</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Visitor/" class="archive-article-date">
-  	<time datetime="2021-04-11T06:38:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Visitor/">设计模式_Visitor</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2021/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2021/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -327,8 +335,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
