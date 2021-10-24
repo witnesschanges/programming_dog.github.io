@@ -152,6 +152,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-如何在windows操作系统下创建一个新的hexo博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/05/%E5%A6%82%E4%BD%95%E5%9C%A8windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84hexo%E5%8D%9A%E5%AE%A2/">如何在windows操作系统下创建一个新的hexo博客</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/05/%E5%A6%82%E4%BD%95%E5%9C%A8windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84hexo%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
+  	<time datetime="2020-04-05T02:23:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>既然要通过博客来记录自己的技术成长，当然要对如何用hexo创建一个博客来做一个实战记录。防止遗忘同时更加熟悉如何编写一篇博客。</p>
+<h2 id="需要用到的工具"><a href="#需要用到的工具" class="headerlink" title="需要用到的工具"></a>需要用到的工具</h2><p>仓库：      github，当然它对应的版本控制系统git也要安装在自己的电脑上<br>框架：      hexo<br>操作界面：  cmd控制台<br>编写语言：  markdown</p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p><img src="1.jpg" alt=""></p>
+<p>具体步骤：<br>第一步：进入到自己创建的本地blog文件夹。<br>第二步：启动hexo，这一步会创建一个本地的网络连接：<br><a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a><br>第三步：为自己的博客创建一个名字。<br>第四步：找到对应的.md文件，使用markdown编辑器进行博客编写。<br>第五步：清理文件，暂时不知道这一步是干什么的。<br>第六步：生成文件，为部署到远端做准备。<br>第七步：部署到远端，这里我用了自己的GitHub域址。</p>
+<p>如果要更改某篇博客的一些细节或内容，秩序执行第四步至第七步。另外，博客中文件的插入方式请参见以下网址的第一个高赞回答：<br><a href="https://www.zhihu.com/question/21065229" target="_blank" rel="noopener">https://www.zhihu.com/question/21065229</a><br>如若想要了解怎么搭建hexo博客环境，请学习codesheep的视频：<br><a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=1165" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Yb411a7ty?t=1165</a></p>
+<h2 id="如何添加实现所有文章的功能模块"><a href="#如何添加实现所有文章的功能模块" class="headerlink" title="如何添加实现所有文章的功能模块"></a>如何添加实现所有文章的功能模块</h2><p>因为一开始点所有文章会显示功能不能用，然后会显示以下的图片。<br><img src="2.jpg" alt=""></p>
+<p>上面提醒有三步。<br>一、查node的版本，在命令行输入”node -v”命令就行<br>二、”npm i  hexo-generator-json-content –save”。命令行输入时会卡住，但是后来没安装成功也能使用。<br>三、输入下面一段文字在_config.yml文件里面<br>jsonContent:<br> meta: false<br> pages: false<br> posts:<br>  title: true<br>  date: true<br>  path: true<br>  text: false<br>  raw: false<br>  content: false<br>  slug: false<br>  updated: false<br>  comments: false<br>  link: false<br>  permalink: false<br>  excerpt: false<br>  categories: false<br>  tags: true</p>
+<p>注意！第一行前无空格，然后面一段空两格，在后一段空三格。这个错误不容易发现，花费了很长的时间，总以为是第二步出了问题，其实不然，后面证实第二步不执行也能成功。</p>
+<h2 id="如何让图片能正常显示"><a href="#如何让图片能正常显示" class="headerlink" title="如何让图片能正常显示"></a>如何让图片能正常显示</h2><p>之前通过将图片部署到github上面，会出现github和hexo博客都不能显示图片的问题，因此问了百度，查到的方法如下。<br>链接： <a href="https://blog.csdn.net/Fitz1318/article/details/86548129" target="_blank" rel="noopener">https://blog.csdn.net/Fitz1318/article/details/86548129</a></p>
+<p>设置站点配置_config.yml:将post_asset_folder: false改为post_asset_folder: true<br>安装插件:<code>npm install https://github.com/CodeFalling/hexo-asset-image -- save</code><br>运行hexo n “XXXXXX”,生成XXXXX.md博文时就会在/source/_posts目录下生成XXXXXX的文件夹，将你想在XXXXX博文中插入的照片放置到这个同名文件夹中即可，图片的命名随意。<br>添加图片:在想添加的位置写入<code>![](图片名字.图片格式)</code>,例如<code>![](1.png)</code>。</p>
+<p>实践：<br>安装插件时可能会出现err，不知道什么原因，不过后面还是能使用。<br>可以不使用hexo n “XXXXXX”创建文件夹，可以直接在/source/_posts目录下创建一个和博客文章同名的文件夹，放入对应的图片就行。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>到目前为止只是对博客的文本、代码、图片做了插入，还有很多不完善的地方。如博客整理归纳的问题、博客排版问题、代码的美观问题、公式的插入等等细节还需要通过多编写博客进行完善。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/05/%E5%A6%82%E4%BD%95%E5%9C%A8windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84hexo%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Essential-C-第一章习题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
