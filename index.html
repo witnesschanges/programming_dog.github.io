@@ -152,6 +152,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-设计模式-Bridge" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Bridge/">设计模式-Bridge</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Bridge/" class="archive-article-date">
+  	<time datetime="2021-10-24T08:40:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>桥接模式(Bridge)，巧的是刚好最近工作上很多用API完成项目内容的工作。而API正是使用到了桥接模式，所以看这一模式比较有动力，理解起来很容易，并且也加深了对API使用的理解。<br>桥接模式是一种结构型的设计模式，将一个大类或紧密相连的类拆分为抽象和实现两个层次。抽象部分控制高层逻辑，实现部分实现具体细节。另外，前段/后端，GUI/API，客户端/多操作系统，客户端/多数据库服务器，域/基础设施等等都是建立在桥接模式思想之上的。客户端仅关心如何与抽象部分进行合作，但是在抽象部分需要包含引用部分的实现。<br>桥接模式可以有效地阻止类爆炸的问题存在。庞杂的系统中，很小的改动都要花费很大的精力，但是在较小且明确的模块中，进行修改会容易很多。</p>
+<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>IDE: VS2019<br>语言： C#; C++</p>
+<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Bridge</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Abstraction</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//包含实现的引用并委托所有的工作给它，该引用就是Brige</span></span><br><span class="line">        <span class="keyword">protected</span> IImplementation _implementation;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Abstraction</span>(<span class="params">IImplementation implementation</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._implementation = implementation;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">string</span> <span class="title">Operation</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Abstract: Base operation with:\n"</span> + _implementation.OperationImplementation();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">ExtendedAbstraction</span> : <span class="title">Abstraction</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ExtendedAbstraction</span>(<span class="params">IImplementation implementation</span>) : <span class="title">base</span>(<span class="params">implementation</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">Operation</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"ExtendedAbstraction: Extended operation with:\n"</span> + <span class="keyword">base</span>.Operation();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IImplementation</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">string</span> <span class="title">OperationImplementation</span>(<span class="params"></span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">ConcreteImplementationA</span> : <span class="title">IImplementation</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">OperationImplementation</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"ConcreteImplementationA: The result in platform A.\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">ConcreteImplementationB</span> : <span class="title">IImplementation</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">OperationImplementation</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"ConcreteImplementationB: The result in platform B.\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Client</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//客户代码只依赖抽象类</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ClientCode</span>(<span class="params">Abstraction abstraction</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.Write(abstraction.Operation());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Client client = <span class="keyword">new</span> Client();</span><br><span class="line"></span><br><span class="line">            Abstraction abstraction;</span><br><span class="line">            abstraction = <span class="keyword">new</span> Abstraction(<span class="keyword">new</span> ConcreteImplementationA());</span><br><span class="line">            client.ClientCode(abstraction);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine();</span><br><span class="line"></span><br><span class="line">            abstraction = <span class="keyword">new</span> ExtendedAbstraction(<span class="keyword">new</span> ConcreteImplementationB());</span><br><span class="line">            client.ClientCode(abstraction);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>AutoCad, Inventor等API在客户端中的使用。可以很容易发现它们API中对实现部分的引用有<code>DocumentManager</code>, <code>ApplicationService</code>等等。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>创建和平台无关的类和程序；<br>客户端仅和高层抽象部分进行互动，不会接触到平台的具体细节；<br>开闭原则，新增抽象部分和具体实现部分不会相互影响；<br>单一职责原则，抽象专注于高层逻辑管理，实现专注于实现平台细节。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>对高内聚的类使用该模式会使得代码很复杂。</p>
+<h2 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h2><p>桥接模式是统一实现，抽象为接口，适配器是让互不相关的类进行相互合作。<br>桥接、状态、策略模式的接口非常相似，它们都基于组合模式；<br>抽象工厂可以和桥接搭配使用；<br>结合使用生成器模式和桥接模式；</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Bridge/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-设计模式-Prototype" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -781,78 +851,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/06/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Factory/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-设计模式-State" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-State/">设计模式-State</a>
-    </h1>
-  
-
-        
-        <a href="/2021/06/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-State/" class="archive-article-date">
-  	<time datetime="2021-06-03T16:07:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>状态模式算是我接触的比较早的模式之一，记得当时在学校自己胡乱学的时候（也可能是在看一些算法资料的时候，记性太差记不清了……），就多次看到过有限状态机这个概念。可能当时编程底子不够，没有系统性的学习、深入面向对象的编程方式。所以状态机的概念对于我来说还是有一些晦涩难懂，一直没有看进去学明白。直至在学习状态模式之前，都担心状态模式是一种比较高级的设计模式，可能一时半会看不明白。但看完两遍下来，感觉收获不小，也没有想象中的难。<br>总结下来，果然设计模式是前人各种编程经验的总结。迄今为止满打满算也有一年的编程工作经验了，学习这些设计模式应该不算什么大难题。尽管有一部分设计模式的名称一开始望过去有一点不甚明了，但看进去了就会有收获。<br>另外，之前看文档有涉及到状态机的相关知识，当时一点不懂，现在可以抽时间返回去看看了。</p>
-<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>编译器：VS2019<br>语言：C#</p>
-<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="comment">//状态模式和条件语句有很大的关联</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">State</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Context</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> State _state = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Context</span>(<span class="params">State state</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>.TranslatitonTo(state);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TranslatitonTo</span>(<span class="params">State state</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">$"Context: Translation to <span class="subst">&#123;state.GetType().Name&#125;</span>."</span>);</span><br><span class="line">            <span class="keyword">this</span>._state = state;</span><br><span class="line">            <span class="keyword">this</span>._state.SetContext(<span class="keyword">this</span>);<span class="comment">//When the state of an object changed, the context of this object also needs to change.</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Request1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._state.Handle1();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Request2</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._state.Handle2();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">State</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">protected</span> Context _context;<span class="comment">//策略模式的Strategy中没有对Context的反引用（反引用可以让状态对象切换Context的状态）</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetContext</span>(<span class="params">Context context</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._context = context;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Handle1</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Handle2</span>(<span class="params"></span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">ConcreteStateA</span> : <span class="title">State</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Handle1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"ConcreteA handles request1."</span>);</span><br><span class="line">            Console.WriteLine(<span class="string">"ConcreteA want to change the state of context."</span>);</span><br><span class="line">            <span class="keyword">this</span>._context.TranslatitonTo(<span class="keyword">new</span> ConcreteStateB());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Handle2</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"ConcreteA handles request2."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">ConcreteStateB</span> : <span class="title">State</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Handle1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"ConcreteA handles request1."</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Handle2</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"ConcreteB handles request2."</span>);</span><br><span class="line">            Console.WriteLine(<span class="string">"ConcreteB want to change the state of context."</span>);</span><br><span class="line">            <span class="keyword">this</span>._context.TranslatitonTo(<span class="keyword">new</span> ConcreteStateA());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> context = <span class="keyword">new</span> Context(<span class="keyword">new</span> ConcreteStateA());</span><br><span class="line">            context.Request1();</span><br><span class="line">            context.Request2();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="工作中可能遇到的场景（有待验证）"><a href="#工作中可能遇到的场景（有待验证）" class="headerlink" title="工作中可能遇到的场景（有待验证）"></a>工作中可能遇到的场景（有待验证）</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>模型文件（.ipt, .iam）可能存在不同的状态：Sktech状态，模型状态，Drawing状态。在不同状态下的显示内容以及可执行的命令都不相同。.iam中part的激活/未激活，Supperss/Unsuppress。<br>Ribbon也可以视为一个Context，会根据不同的状态排列显示不同的可执行命令。</p>
-<h3 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h3><p>PP里面的Preset！！不同的Preset状态会显示不同的PP控件和控件命令，但大多数都是相同的。</p>
-<h3 id="场景三"><a href="#场景三" class="headerlink" title="场景三"></a>场景三</h3><p>Inventor里面的Model State虽然我没有看代码，但是八九不离十是用State模式来设计的。Model State可以保存模型设计过程中的多个状态，让工程师在设计时可以回滚到先前的设计版本或者利用先前版本为基础进行其他模型的设计。</p>
-<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>单一职责：与特定状态相关的代码放在特定的状态中；开闭原则：引入新状态时可以无需改变上下文和已有的状态类；可以消除臃肿重复的代码。</p>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>如果只有少数几个状态，那么使用状态模式会显得小题大做（用几个条件语句即可）。这一点和策略模式是一样的。</p>
-<h3 id="相关-相近模式"><a href="#相关-相近模式" class="headerlink" title="相关/相近模式"></a>相关/相近模式</h3><p>桥接模式，策略模式，适配器模式。与策略模式的区别在于策略模式中的策略类里面没有对上下文的反引用，其不知道上下文以及其他策略的存在。而状态模式可以在状态类和上下文中都可以改变/设置状态。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-State/">展开全文 >></a>
         </p>
       
 
