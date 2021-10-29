@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>设计模式-Facade | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="简介Facade（外观模式，门面模式），一种结构型设计模式，为程序库，框架或一些复杂类提供简单的接口。用户通过Facade来管理各类复杂的子系统，完成Client端和子系统之间的解耦。 外观模式重定向客户的请求，把用户的请求通过自己分发到不同的子系统中去。 外观模式极容易演出上帝对象，这时可以创建附加外观来分出一部分功能。 语言环境IDE: VS2019语言： C# Sample123456789">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-Facade">
+<meta property="og:url" content="http://yoursite.com/2021/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Facade/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简介Facade（外观模式，门面模式），一种结构型设计模式，为程序库，框架或一些复杂类提供简单的接口。用户通过Facade来管理各类复杂的子系统，完成Client端和子系统之间的解耦。 外观模式重定向客户的请求，把用户的请求通过自己分发到不同的子系统中去。 外观模式极容易演出上帝对象，这时可以创建附加外观来分出一部分功能。 语言环境IDE: VS2019语言： C# Sample123456789">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-29T12:50:38.000Z">
+<meta property="article:modified_time" content="2021-10-29T13:01:53.904Z">
 <meta property="article:author" content="Joe Li">
 <meta name="twitter:card" content="summary">
   
@@ -150,295 +154,164 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-设计模式-Facade" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式-Facade
+    </h1>
+  
+
+        
+        <a href="/2021/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Facade/" class="archive-article-date">
+  	<time datetime="2021-10-29T12:50:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-29</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Facade（外观模式，门面模式），一种结构型设计模式，为程序库，框架或一些复杂类提供简单的接口。用户通过Facade来管理各类复杂的子系统，完成Client端和子系统之间的解耦。</p>
+<p>外观模式重定向客户的请求，把用户的请求通过自己分发到不同的子系统中去。</p>
+<p>外观模式极容易演出上帝对象，这时可以创建附加外观来分出一部分功能。</p>
+<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>IDE: VS2019<br>语言： C#</p>
+<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Facade</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Facade</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">protected</span> Subsystem1 _subsystem1;</span><br><span class="line">        <span class="keyword">protected</span> Subsystem2 _subsystem2;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Facade</span>(<span class="params">Subsystem1 subsystem1, Subsystem2 subsystem2</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._subsystem1 = subsystem1;</span><br><span class="line">            <span class="keyword">this</span>._subsystem2 = subsystem2;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">Operation</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">string</span> result = <span class="string">"Facade initializes subsystems:\n"</span>;</span><br><span class="line">            result += <span class="keyword">this</span>._subsystem1.Operation1();</span><br><span class="line">            result += <span class="keyword">this</span>._subsystem2.Operation1();</span><br><span class="line">            result += <span class="string">"Facade orders subsystems to perform the action:\n"</span>;</span><br><span class="line">            result += <span class="keyword">this</span>._subsystem1.OperationN();</span><br><span class="line">            result += <span class="keyword">this</span>._subsystem2.OperationZ();</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Subsystem1</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">Operation1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Subsystem1: Ready!\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">OperationN</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Subsystem1: Go!\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Subsystem2</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">Operation1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Subsystem2: Get Ready!\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">OperationZ</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Subsystem2: Fire!\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Client</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//客户端仅仅需要和Facade进行联系，不与复杂的子系统之间有直接关系</span></span><br><span class="line">        <span class="comment">//子系统的生命周期由Faacade进行管理</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ClientCode</span>(<span class="params">Facade facade</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.Write(facade.Operation());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Subsystem1 subsystem1 = <span class="keyword">new</span> Subsystem1();</span><br><span class="line">            Subsystem2 subsystem2 = <span class="keyword">new</span> Subsystem2();</span><br><span class="line">            Facade facade = <span class="keyword">new</span> Facade(subsystem1, subsystem2);</span><br><span class="line">            Client.ClientCode(facade);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>各式各样的Util类，Manager类应该都是用到了外观模式。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>让客户端代码独立于复杂子系统</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>容易演变出上帝对象</p>
+<h2 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h2><p>外观模式和终结者模式非常相像，都是一种中心化的方法；<br>享元模式生成大量小对象；外观模式将子系统的功能用一个对象来管理；<br>外观模式通常可以转换为单例模式；<br>代理模式也同样缓存了一个复杂实体。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/09/Essential-C-%EF%BC%9A%E7%AC%AC%E4%BA%94%E7%AB%A0%E4%B9%A0%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2020-08-09T06:34:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/09/Essential-C-%EF%BC%9A%E7%AC%AC%E4%BA%94%E7%AB%A0%E4%B9%A0%E9%A2%98/">Essential-C-：第五章习题</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Facade/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/01/state-machine-%E5%85%A5%E9%97%A8/" class="archive-article-date">
-  	<time datetime="2020-08-01T15:43:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Bridge/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式-Bridge</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/01/state-machine-%E5%85%A5%E9%97%A8/">state machine 入门</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/11/Essential-C-%EF%BC%9A%E7%AC%AC%E5%9B%9B%E7%AB%A0%E4%B9%A0%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2020-07-11T14:16:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/11/Essential-C-%EF%BC%9A%E7%AC%AC%E5%9B%9B%E7%AB%A0%E4%B9%A0%E9%A2%98/">Essential C++：第四章习题</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/21/%E5%8F%96%E8%99%9A%E8%A1%A8%E5%9C%B0%E5%9D%80/" class="archive-article-date">
-  	<time datetime="2020-06-21T08:35:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/21/%E5%8F%96%E8%99%9A%E8%A1%A8%E5%9C%B0%E5%9D%80/">取虚表地址</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/25/%E5%AE%89%E8%A3%85ANSYS18-0/" class="archive-article-date">
-  	<time datetime="2020-04-24T16:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/25/%E5%AE%89%E8%A3%85ANSYS18-0/">安装ANSYS18.0</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/19/%E4%B8%80%E4%B8%AAWindowsAutomationAPI%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/" class="archive-article-date">
-  	<time datetime="2020-04-19T13:44:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/19/%E4%B8%80%E4%B8%AAWindowsAutomationAPI%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">一个WindowsAutomationAPI的测试用例</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/19/UI-Automation-%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%AE%9E%E7%8E%B0-UI-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%8F%90%E4%BE%9B%E7%A8%8B%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-04-19T09:37:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/19/UI-Automation-%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%AE%9E%E7%8E%B0-UI-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%8F%90%E4%BE%9B%E7%A8%8B%E5%BA%8F/">UI Automation--在客户端应用程序中实现 UI 自动化提供程序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/18/c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/" class="archive-article-date">
-  	<time datetime="2020-04-18T13:42:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/18/c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/">c#学习笔记一_Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/14/markdown%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BC%96%E5%86%99%E6%8A%80%E5%B7%A7/" class="archive-article-date">
-  	<time datetime="2020-04-14T09:27:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/14/markdown%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BC%96%E5%86%99%E6%8A%80%E5%B7%A7/">markdown格式文件的一些编写技巧</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/11/%E5%BD%92%E7%BA%B3%E6%95%B4%E7%90%86%E7%9A%84%E4%B8%80%E4%BA%9B%E5%85%B3%E4%B9%8EUI-Automation%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" class="archive-article-date">
-  	<time datetime="2020-04-11T09:02:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/11/%E5%BD%92%E7%BA%B3%E6%95%B4%E7%90%86%E7%9A%84%E4%B8%80%E4%BA%9B%E5%85%B3%E4%B9%8EUI-Automation%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/">归纳整理的一些关乎UI Automation的学习网址</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +335,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
