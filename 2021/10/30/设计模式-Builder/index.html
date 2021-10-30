@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>设计模式-Builder | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2021/index.html">
+  <meta name="description" content="简介Bulider（建造者，生成器），生成器模式分步骤创建复杂的对象，且根据相同的步骤可以生成不同的代码。如同工厂的流水线一样，流水线上的产品通过不同工位上工人的不同步骤来生成最终产品。 语言环境IDE: VS2019语言： C# Sample123456789101112131415161718192021222324252627282930313233343536373839404142434">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-Builder">
+<meta property="og:url" content="http://yoursite.com/2021/10/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Builder/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简介Bulider（建造者，生成器），生成器模式分步骤创建复杂的对象，且根据相同的步骤可以生成不同的代码。如同工厂的流水线一样，流水线上的产品通过不同工位上工人的不同步骤来生成最终产品。 语言环境IDE: VS2019语言： C# Sample123456789101112131415161718192021222324252627282930313233343536373839404142434">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-30T05:42:47.000Z">
+<meta property="article:modified_time" content="2021-10-30T05:49:18.927Z">
 <meta property="article:author" content="Joe Li">
 <meta name="twitter:card" content="summary">
   
@@ -150,295 +154,156 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-设计模式-Builder" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      设计模式-Builder
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Builder/" class="archive-article-date">
+
+        
+        <a href="/2021/10/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Builder/" class="archive-article-date">
   	<time datetime="2021-10-30T05:42:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-30</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Builder/">设计模式-Builder</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Bulider（建造者，生成器），生成器模式分步骤创建复杂的对象，且根据相同的步骤可以生成不同的代码。如同工厂的流水线一样，流水线上的产品通过不同工位上工人的不同步骤来生成最终产品。</p>
+<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>IDE: VS2019<br>语言： C#</p>
+<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Bulider</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IBulider</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">BuildPartA</span>(<span class="params"></span>)</span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">BuildPartB</span>(<span class="params"></span>)</span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">BuildPartC</span>(<span class="params"></span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ConcreteBulider</span> : <span class="title">IBulider</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> Product _product = <span class="keyword">new</span> Product();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ConcreteBulider</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>.Reset();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Reset</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._product = <span class="keyword">new</span> Product();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildPartA</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._product.Add(<span class="string">"PartA1"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildPartB</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._product.Add(<span class="string">"PartB1"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildPartC</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._product.Add(<span class="string">"PartC1"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Product <span class="title">GetProduct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Product result = <span class="keyword">this</span>._product;</span><br><span class="line">            <span class="keyword">this</span>.Reset();</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Product</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> List&lt;<span class="keyword">object</span>&gt; _parts = <span class="keyword">new</span> List&lt;<span class="keyword">object</span>&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params"><span class="keyword">string</span> part</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._parts.Add(part);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">ListParts</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">string</span> str = <span class="keyword">string</span>.Empty;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt; <span class="keyword">this</span>._parts.Count; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                str += <span class="keyword">this</span>._parts[i] + <span class="string">","</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            str = str.Remove(str.Length - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Product parts: "</span> + str + <span class="string">"\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Director</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> IBulider _bulider;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> IBulider Bulider</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">set</span> &#123; _bulider = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildMinimalViableProduct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._bulider.BuildPartA();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildFullFeaturedProduct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._bulider.BuildPartA();</span><br><span class="line">            <span class="keyword">this</span>._bulider.BuildPartB();</span><br><span class="line">            <span class="keyword">this</span>._bulider.BuildPartC();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> director = <span class="keyword">new</span> Director();</span><br><span class="line">            <span class="keyword">var</span> builder = <span class="keyword">new</span> ConcreteBulider();</span><br><span class="line">            director.Bulider = builder;</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">"Standard basic product:"</span>);</span><br><span class="line">            director.BuildMinimalViableProduct();</span><br><span class="line">            Console.WriteLine(builder.GetProduct().ListParts());</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">"Standard full featured product:"</span>);</span><br><span class="line">            director.BuildFullFeaturedProduct();</span><br><span class="line">            Console.WriteLine(builder.GetProduct().ListParts());</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">"Custom product:"</span>);</span><br><span class="line">            builder.BuildPartA();</span><br><span class="line">            builder.BuildPartC();</span><br><span class="line">            Console.WriteLine(builder.GetProduct().ListParts());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
 
-        <div class="article-info info-on-right">
-          
-          
-
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/10/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Builder/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Facade/" class="archive-article-date">
-  	<time datetime="2021-10-29T12:50:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-29</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Facade/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式-Facade</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Facade/">设计模式-Facade</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Bridge/" class="archive-article-date">
-  	<time datetime="2021-10-24T08:40:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Bridge/">设计模式-Bridge</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Prototype/" class="archive-article-date">
-  	<time datetime="2021-10-24T06:38:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Prototype/">设计模式-Prototype</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Flyweight/" class="archive-article-date">
-  	<time datetime="2021-10-17T06:00:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Flyweight/">设计模式-Flyweight</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Adapter/" class="archive-article-date">
-  	<time datetime="2021-10-17T03:30:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Adapter/">设计模式-Adapter</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Command/" class="archive-article-date">
-  	<time datetime="2021-10-16T10:07:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Command/">设计模式-Command</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-some-basic-knowledge/" class="archive-article-date">
-  	<time datetime="2021-10-16T06:36:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-some-basic-knowledge/">设计模式-some basic knowledge</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Mediator/" class="archive-article-date">
-  	<time datetime="2021-07-18T15:49:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Mediator/">设计模式-Mediator</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Proxy/" class="archive-article-date">
-  	<time datetime="2021-07-03T07:10:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Proxy/">设计模式-Proxy</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2021/page/2/">2</a><a class="extend next" rel="next" href="/archives/2021/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +327,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
