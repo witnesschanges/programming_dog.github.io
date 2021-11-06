@@ -152,6 +152,81 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Essential-C-：第七章习题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/16/Essential-C-%EF%BC%9A%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%B9%A0%E9%A2%98/">Essential-C-：第七章习题</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/16/Essential-C-%EF%BC%9A%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%B9%A0%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2020-08-16T08:41:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>异常处理</p>
+<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>编译器：Visual studio 2019<br>语言：C++</p>
+<h2 id="习题7-1"><a href="#习题7-1" class="headerlink" title="习题7.1"></a>习题7.1</h2><p>题目：找出以下函数中所有可能发生错误的地方。本题中不考虑出现异常<br>要点：</p>
+<ol>
+<li>不知道其中一些函数的用处</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//找出以下函数中所有可能发生错误的地方。本题中不考虑出现异常</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">alloc_and_init</span><span class="params">(<span class="built_in">string</span> file_name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//1. ifstream constructor接受的参数类型是const char*而不是string</span></span><br><span class="line">	<span class="comment">//应改为： ifstream infile(file_name.c_str());</span></span><br><span class="line">	<span class="function">ifstream <span class="title">infile</span><span class="params">(file_name)</span></span>;</span><br><span class="line">	<span class="comment">//2. infile被定义之后，应检查是否成功打开</span></span><br><span class="line">	<span class="comment">//应添加： if(!infile) ...</span></span><br><span class="line">	<span class="keyword">int</span> elem_cnt;</span><br><span class="line">	infile &gt;&gt; elem_cnt;</span><br><span class="line">	<span class="comment">//3. 文件内可能不包含所需的字段或者为空，也会发生错误，因此需要检查是否读取成功</span></span><br><span class="line">	<span class="comment">//应添加： if(!infile) ...</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>* pi = allocate_array(elem_cnt);	<span class="comment">//这些都是什么函数？</span></span><br><span class="line">	<span class="comment">//4. 指针必须指向实际存在的对象，必须对指针做检验</span></span><br><span class="line">	<span class="comment">//应添加： if(!pi) ...</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> elem;</span><br><span class="line">	<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (infile &gt;&gt; elem)</span><br><span class="line">	&#123;</span><br><span class="line">		pi[index++] = elem;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	sort_array(pi, elem_cnt);</span><br><span class="line">	register_data(pi);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pi;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="习题7-2"><a href="#习题7-2" class="headerlink" title="习题7.2"></a>习题7.2</h2><p>题目：设置多个异常处理块来处理异常<br>要点：无</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">alloc_and_init</span><span class="params">(<span class="built_in">string</span> file_name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">ifstream <span class="title">infile</span><span class="params">(file_name)</span></span>;</span><br><span class="line">	<span class="keyword">if</span> (!infile) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> elem_cnt;</span><br><span class="line">	infile &gt;&gt; elem_cnt;</span><br><span class="line">	<span class="keyword">if</span> (!infile) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">try</span> </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span>* pi = allocate_array(elem_cnt);	<span class="comment">//exception(1)</span></span><br><span class="line">		<span class="keyword">int</span> elem;</span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (infile &gt;&gt; elem)</span><br><span class="line">		&#123;</span><br><span class="line">			pi[index++] = elem;</span><br><span class="line">		&#125;</span><br><span class="line">		sort_array(pi, elem_cnt);			<span class="comment">//exception(2)</span></span><br><span class="line">		register_data(pi);					<span class="comment">//exception(3)</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//exception(1)</span></span><br><span class="line">	<span class="keyword">catch</span> (<span class="keyword">const</span> noMem &amp; memFail)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"alloc_and_init(): allocate_array failure!\n"</span></span><br><span class="line">			&lt;&lt; memFail.what() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//exception(2)</span></span><br><span class="line">	<span class="keyword">catch</span>(<span class="keyword">int</span> &amp;sortFail)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"alloc_and_init(): sort_array failure!\n"</span></span><br><span class="line">			&lt;&lt; <span class="string">"thrown integer value: "</span> &lt;&lt; sortFail &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//exception(3)</span></span><br><span class="line">	<span class="keyword">catch</span> (<span class="built_in">string</span>&amp; registerFail)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"alloc_and_init(): register_data failure!\n"</span></span><br><span class="line">			&lt;&lt; <span class="string">"thrown string value: "</span> &lt;&lt; registerFail &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pi;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="习题7-3"><a href="#习题7-3" class="headerlink" title="习题7.3"></a>习题7.3</h2><p>题目：为练习5.2类体系加入两个异常类型<br>要点：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;exception&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StackException</span> :</span> <span class="keyword">public</span> logic_error</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    StackException(<span class="keyword">const</span> <span class="keyword">char</span>* what) : _what(what) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="title">what</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> _what.c_str(); &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">string</span> _what;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PopOnEmpty</span> :</span> <span class="keyword">public</span> StackException</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    PopOnEmpty() : StackException(<span class="string">"Pop on Empty Stack"</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PushOnFull</span> :</span> <span class="keyword">public</span> StackException</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    PushOnFull() : StackException(<span class="string">"Push On Full Stack"</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> elemType&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">(elemType&amp; elem)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (empty())</span><br><span class="line">        <span class="keyword">throw</span> PopOnEmpty();</span><br><span class="line">    elem = _stack(--_top);</span><br><span class="line">    _stack.pop_back();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> elemType&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> elemType&amp; elem)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!full())</span><br><span class="line">    &#123;</span><br><span class="line">        _stack.push_back(elem);</span><br><span class="line">        ++_top;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> PushOnFull();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/16/Essential-C-%EF%BC%9A%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%B9%A0%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Essential-C-：第六章习题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -760,70 +835,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/04/18/c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-markdown格式文件的一些编写技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/14/markdown%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BC%96%E5%86%99%E6%8A%80%E5%B7%A7/">markdown格式文件的一些编写技巧</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/14/markdown%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BC%96%E5%86%99%E6%8A%80%E5%B7%A7/" class="archive-article-date">
-  	<time datetime="2020-04-14T09:27:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>因为我是博客编写的新手，很多.md文件的编写技巧都不会用。为防止忘记，在边学的过程中边记录一些小技巧，以防忘记。</p>
-<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><p>1、 连续两个##加空格代表新建一个章节。<br>2、 ```（后接语言的类型，比如”C++”,”JAVA”）代表插入一段代码段，代码段末尾也要加上三个点作为结束。<br>3、 一些没用过的文本格式可以参考hexo博客刚创建时系统自带的那片博客《hello-world.md》。<br>4、在vscode上面安装Markdown Preview Enhanced插件。右键编辑区域可以打开.md的预览。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/14/markdown%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BC%96%E5%86%99%E6%8A%80%E5%B7%A7/">展开全文 >></a>
         </p>
       
 

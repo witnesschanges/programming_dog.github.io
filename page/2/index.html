@@ -152,6 +152,78 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-设计模式-Proxy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Proxy/">设计模式-Proxy</a>
+    </h1>
+  
+
+        
+        <a href="/2021/07/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Proxy/" class="archive-article-date">
+  	<time datetime="2021-07-03T07:10:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>在生活中经常会听到各式各样的代理，房屋代理、银行代理、旅游代理等等。因为没有过多使用过他们的服务，所以没有去深究各类代理的工作范畴。而且在工作中也有各式各样的代理，网络代理、远程代理、视频缓冲代理等等。正好借着学习设计模式的机会把这些概念全捋一遍。</p>
+<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>IDE: VS2019(可以尝试着装其他一些IDE玩玩呀，比如写JAVA的Intellij idea)<br>语言： C#</p>
+<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Proxy</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">ISubject</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Request</span>(<span class="params"></span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">RealSubject</span> : <span class="title">ISubject</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Request</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"RealSubject: Handling Request."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Proxy</span> : <span class="title">ISubject</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> RealSubject _realSubject;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Proxy</span>(<span class="params">RealSubject realSubject</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>._realSubject = realSubject;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Request</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.CheckAccess())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">this</span>._realSubject.Request();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.LogAccess();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">CheckAccess</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"Proxy: Checking access prior to firing a real request."</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">LogAccess</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"Proxy: Logging the time of request."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Client</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ClientCode</span>(<span class="params">ISubject subject</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            subject.Request();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Client client = <span class="keyword">new</span> Client();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">"Client: Executing the client code with a real subject:"</span>);</span><br><span class="line">            RealSubject realSubject = <span class="keyword">new</span> RealSubject();</span><br><span class="line">            client.ClientCode(realSubject);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">"Client: Executing the same client code with a proxy:"</span>);</span><br><span class="line">            Proxy proxy = <span class="keyword">new</span> Proxy(realSubject);</span><br><span class="line">            client.ClientCode(proxy);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>代理可以完成一些不常用、巨型、繁杂的服务，和常用的简单服务相分离。</p>
+<h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>视频缓冲服务，第一次访问视频通过网络下载缓冲视频，后面访问视频就直接使用已经下载好的视频</p>
+<h3 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h3><p>（实际编程工作中肯定用到过，只不过当时不熟悉没印象，这个后面再补充）</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>客户端不察觉的情况下控制服务对象；可以对客户端对象的声明周期进行管理；服务对象没有准备好/不存在的情况下也可以进行代理工作；不修改服务或者客户端代码的情况下增加新代理。（前几条优点不知所云）</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>新建多个代理会使代码变的复杂；服务响应会延迟（为啥）。</p>
+<h2 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h2><p>装饰器模式；适配器模式；外观模式</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Proxy/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-设计模式-AbstractFactory" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -775,81 +847,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/04/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Visitor/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Essential-C-：第七章习题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/16/Essential-C-%EF%BC%9A%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%B9%A0%E9%A2%98/">Essential-C-：第七章习题</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/16/Essential-C-%EF%BC%9A%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%B9%A0%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2020-08-16T08:41:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>异常处理</p>
-<h2 id="语言环境"><a href="#语言环境" class="headerlink" title="语言环境"></a>语言环境</h2><p>编译器：Visual studio 2019<br>语言：C++</p>
-<h2 id="习题7-1"><a href="#习题7-1" class="headerlink" title="习题7.1"></a>习题7.1</h2><p>题目：找出以下函数中所有可能发生错误的地方。本题中不考虑出现异常<br>要点：</p>
-<ol>
-<li>不知道其中一些函数的用处</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//找出以下函数中所有可能发生错误的地方。本题中不考虑出现异常</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">alloc_and_init</span><span class="params">(<span class="built_in">string</span> file_name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//1. ifstream constructor接受的参数类型是const char*而不是string</span></span><br><span class="line">	<span class="comment">//应改为： ifstream infile(file_name.c_str());</span></span><br><span class="line">	<span class="function">ifstream <span class="title">infile</span><span class="params">(file_name)</span></span>;</span><br><span class="line">	<span class="comment">//2. infile被定义之后，应检查是否成功打开</span></span><br><span class="line">	<span class="comment">//应添加： if(!infile) ...</span></span><br><span class="line">	<span class="keyword">int</span> elem_cnt;</span><br><span class="line">	infile &gt;&gt; elem_cnt;</span><br><span class="line">	<span class="comment">//3. 文件内可能不包含所需的字段或者为空，也会发生错误，因此需要检查是否读取成功</span></span><br><span class="line">	<span class="comment">//应添加： if(!infile) ...</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>* pi = allocate_array(elem_cnt);	<span class="comment">//这些都是什么函数？</span></span><br><span class="line">	<span class="comment">//4. 指针必须指向实际存在的对象，必须对指针做检验</span></span><br><span class="line">	<span class="comment">//应添加： if(!pi) ...</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> elem;</span><br><span class="line">	<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (infile &gt;&gt; elem)</span><br><span class="line">	&#123;</span><br><span class="line">		pi[index++] = elem;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	sort_array(pi, elem_cnt);</span><br><span class="line">	register_data(pi);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pi;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="习题7-2"><a href="#习题7-2" class="headerlink" title="习题7.2"></a>习题7.2</h2><p>题目：设置多个异常处理块来处理异常<br>要点：无</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">alloc_and_init</span><span class="params">(<span class="built_in">string</span> file_name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">ifstream <span class="title">infile</span><span class="params">(file_name)</span></span>;</span><br><span class="line">	<span class="keyword">if</span> (!infile) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> elem_cnt;</span><br><span class="line">	infile &gt;&gt; elem_cnt;</span><br><span class="line">	<span class="keyword">if</span> (!infile) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">try</span> </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span>* pi = allocate_array(elem_cnt);	<span class="comment">//exception(1)</span></span><br><span class="line">		<span class="keyword">int</span> elem;</span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (infile &gt;&gt; elem)</span><br><span class="line">		&#123;</span><br><span class="line">			pi[index++] = elem;</span><br><span class="line">		&#125;</span><br><span class="line">		sort_array(pi, elem_cnt);			<span class="comment">//exception(2)</span></span><br><span class="line">		register_data(pi);					<span class="comment">//exception(3)</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//exception(1)</span></span><br><span class="line">	<span class="keyword">catch</span> (<span class="keyword">const</span> noMem &amp; memFail)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"alloc_and_init(): allocate_array failure!\n"</span></span><br><span class="line">			&lt;&lt; memFail.what() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//exception(2)</span></span><br><span class="line">	<span class="keyword">catch</span>(<span class="keyword">int</span> &amp;sortFail)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"alloc_and_init(): sort_array failure!\n"</span></span><br><span class="line">			&lt;&lt; <span class="string">"thrown integer value: "</span> &lt;&lt; sortFail &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//exception(3)</span></span><br><span class="line">	<span class="keyword">catch</span> (<span class="built_in">string</span>&amp; registerFail)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"alloc_and_init(): register_data failure!\n"</span></span><br><span class="line">			&lt;&lt; <span class="string">"thrown string value: "</span> &lt;&lt; registerFail &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pi;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="习题7-3"><a href="#习题7-3" class="headerlink" title="习题7.3"></a>习题7.3</h2><p>题目：为练习5.2类体系加入两个异常类型<br>要点：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;exception&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StackException</span> :</span> <span class="keyword">public</span> logic_error</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    StackException(<span class="keyword">const</span> <span class="keyword">char</span>* what) : _what(what) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="title">what</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> _what.c_str(); &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">string</span> _what;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PopOnEmpty</span> :</span> <span class="keyword">public</span> StackException</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    PopOnEmpty() : StackException(<span class="string">"Pop on Empty Stack"</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PushOnFull</span> :</span> <span class="keyword">public</span> StackException</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    PushOnFull() : StackException(<span class="string">"Push On Full Stack"</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> elemType&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">(elemType&amp; elem)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (empty())</span><br><span class="line">        <span class="keyword">throw</span> PopOnEmpty();</span><br><span class="line">    elem = _stack(--_top);</span><br><span class="line">    _stack.pop_back();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> elemType&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> elemType&amp; elem)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!full())</span><br><span class="line">    &#123;</span><br><span class="line">        _stack.push_back(elem);</span><br><span class="line">        ++_top;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> PushOnFull();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/16/Essential-C-%EF%BC%9A%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%B9%A0%E9%A2%98/">展开全文 >></a>
         </p>
       
 
