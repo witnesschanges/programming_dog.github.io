@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>果壳中的C# - event | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2021/page/2/index.html">
+  <meta name="description" content="简介Event是C#里面的核心知识点之一，在很多地方都用到了，最典型的当属WPF中的PropertyChanged事件了。之前一直没有搞明白event是什么，event该怎么写，event到底有什么优点，还有EventArgs是什么。这个blog就借助《果壳中的C#》这本书，好好捋一捋event，并跟着敲一遍代码。BTW，这本书写的很不错。 SampleFirst event sample1234">
+<meta property="og:type" content="article">
+<meta property="og:title" content="果壳中的C# - event">
+<meta property="og:url" content="http://yoursite.com/2021/11/20/%E6%9E%9C%E5%A3%B3%E4%B8%AD%E7%9A%84C-event/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简介Event是C#里面的核心知识点之一，在很多地方都用到了，最典型的当属WPF中的PropertyChanged事件了。之前一直没有搞明白event是什么，event该怎么写，event到底有什么优点，还有EventArgs是什么。这个blog就借助《果壳中的C#》这本书，好好捋一捋event，并跟着敲一遍代码。BTW，这本书写的很不错。 SampleFirst event sample1234">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-20T11:50:05.000Z">
+<meta property="article:modified_time" content="2021-11-21T04:00:23.122Z">
 <meta property="article:author" content="Joe Li">
 <meta name="twitter:card" content="summary">
   
@@ -150,295 +154,158 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-果壳中的C-event" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      果壳中的C# - event
+    </h1>
+  
+
+        
+        <a href="/2021/11/20/%E6%9E%9C%E5%A3%B3%E4%B8%AD%E7%9A%84C-event/" class="archive-article-date">
+  	<time datetime="2021-11-20T11:50:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-20</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Event是C#里面的核心知识点之一，在很多地方都用到了，最典型的当属WPF中的PropertyChanged事件了。之前一直没有搞明白event是什么，event该怎么写，event到底有什么优点，还有EventArgs是什么。这个blog就借助《果壳中的C#》这本书，好好捋一捋event，并跟着敲一遍代码。BTW，这本书写的很不错。</p>
+<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><h3 id="First-event-sample"><a href="#First-event-sample" class="headerlink" title="First event sample"></a>First event sample</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyFirstEvent</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">PriceChangedEventHandler</span>(<span class="params"><span class="keyword">int</span> oldPrice, <span class="keyword">int</span> newPrice</span>)</span>;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Stock</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> price;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">event</span> PriceChangedEventHandler PriceChanged;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> Price</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> price; &#125;</span><br><span class="line">            <span class="keyword">set</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (price == <span class="keyword">value</span>) <span class="keyword">return</span>;</span><br><span class="line">                <span class="keyword">int</span> oldPrice = price;</span><br><span class="line">                price = <span class="keyword">value</span>;</span><br><span class="line">                <span class="comment">//广播者内部event就是delegate，其拥有event的所有控制权，比如这个的判断event是否为空的!=操作符以及触发Invoke</span></span><br><span class="line">                <span class="keyword">if</span> (PriceChanged != <span class="literal">null</span>)</span><br><span class="line">                    PriceChanged(oldPrice, price);<span class="comment">//等同于PriceChanged?.Invoke(oldPrice, price)</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Stock_PriceChanged</span>(<span class="params"><span class="keyword">int</span> oldPrice, <span class="keyword">int</span> newPrice</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">$"Stock price is changed from <span class="subst">&#123;oldPrice&#125;</span> to <span class="subst">&#123;newPrice&#125;</span>!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Stock_PriceRises</span>(<span class="params"><span class="keyword">int</span> oldPrice, <span class="keyword">int</span> newPrice</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">if</span> (newPrice &gt; oldPrice)</span><br><span class="line">                Console.WriteLine(<span class="string">$"Stock price rised!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Stock_PriceFalls</span>(<span class="params"><span class="keyword">int</span> oldPrice, <span class="keyword">int</span> newPrice</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">if</span> (newPrice &lt; oldPrice)</span><br><span class="line">                Console.WriteLine(<span class="string">$"Stock price falled!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Stock stock = <span class="keyword">new</span> Stock();</span><br><span class="line">            <span class="comment">//在广播者外部，订阅者只能订阅+=或者-=取消事件</span></span><br><span class="line">            stock.PriceChanged += Stock_PriceChanged;</span><br><span class="line">            stock.PriceChanged += Stock_PriceRises;</span><br><span class="line">            stock.PriceChanged += Stock_PriceFalls;</span><br><span class="line">            stock.Price = <span class="number">1</span>;</span><br><span class="line">            stock.Price = <span class="number">2</span>;</span><br><span class="line">            stock.Price = <span class="number">3</span>;</span><br><span class="line">            stock.Price = <span class="number">2</span>;</span><br><span class="line">            Console.WriteLine(<span class="string">"The trail ends!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Event-pattern"><a href="#Event-pattern" class="headerlink" title="Event pattern"></a>Event pattern</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyFirstEvent</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//the following is defined in .NET System.EventHandler&lt;&gt;</span></span><br><span class="line">    <span class="comment">//public delegate void EventHandler&lt;TEventArgs&gt;(object sender, TEventArgs e) where TEventArgs:EventArgs;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//encapsulate the parameters that need to be passed to event.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PriceChangedEventArgs</span> : <span class="title">EventArgs</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">readonly</span> <span class="keyword">int</span> OldPrice;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">readonly</span> <span class="keyword">int</span> NewPrice;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">PriceChangedEventArgs</span>(<span class="params"><span class="keyword">int</span> oldPrice, <span class="keyword">int</span> newPrice</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            OldPrice = oldPrice;</span><br><span class="line">            NewPrice = newPrice;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Stock</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> price;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">event</span> EventHandler&lt;PriceChangedEventArgs&gt; PriceChanged;</span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OnPriceChanged</span>(<span class="params">PriceChangedEventArgs e</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            PriceChanged?.Invoke(<span class="keyword">this</span>, e);<span class="comment">//first param indicate the object that send this event.</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> Price</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> price; &#125;</span><br><span class="line">            <span class="keyword">set</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (price == <span class="keyword">value</span>) <span class="keyword">return</span>;</span><br><span class="line">                <span class="keyword">int</span> oldPrice = price;</span><br><span class="line">                price = <span class="keyword">value</span>;</span><br><span class="line">                OnPriceChanged(<span class="keyword">new</span> PriceChangedEventArgs(oldPrice, price));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Stock_PriceChanged</span>(<span class="params"><span class="keyword">object</span> sender, PriceChangedEventArgs e</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">$"<span class="subst">&#123;sender&#125;</span> Stock price is changed from <span class="subst">&#123;e.OldPrice&#125;</span> to <span class="subst">&#123;e.NewPrice&#125;</span>!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Stock_PriceRises</span>(<span class="params"><span class="keyword">object</span> sender, PriceChangedEventArgs e</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">if</span> (e.NewPrice &gt; e.OldPrice)</span><br><span class="line">                Console.WriteLine(<span class="string">$"<span class="subst">&#123;sender&#125;</span> Stock price rised!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Stock_PriceFalls</span>(<span class="params"><span class="keyword">object</span> sender, PriceChangedEventArgs e</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">if</span> (e.NewPrice &lt; e.OldPrice)</span><br><span class="line">                Console.WriteLine(<span class="string">$"<span class="subst">&#123;sender&#125;</span> Stock price falled!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Stock stock = <span class="keyword">new</span> Stock();</span><br><span class="line">            stock.PriceChanged += Stock_PriceChanged;</span><br><span class="line">            stock.PriceChanged += Stock_PriceRises;</span><br><span class="line">            stock.PriceChanged += Stock_PriceFalls;</span><br><span class="line">            stock.Price = <span class="number">1</span>;</span><br><span class="line">            stock.Price = <span class="number">2</span>;</span><br><span class="line">            stock.Price = <span class="number">3</span>;</span><br><span class="line">            stock.Price = <span class="number">2</span>;</span><br><span class="line">            Console.WriteLine(<span class="string">"The trail ends!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Adapter/" class="archive-article-date">
-  	<time datetime="2021-10-17T03:30:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Adapter/">设计模式-Adapter</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/11/20/%E6%9E%9C%E5%A3%B3%E4%B8%AD%E7%9A%84C-event/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Command/" class="archive-article-date">
-  	<time datetime="2021-10-16T10:07:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-16</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/11/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Composite/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式-Composite</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Command/">设计模式-Command</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-some-basic-knowledge/" class="archive-article-date">
-  	<time datetime="2021-10-16T06:36:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-some-basic-knowledge/">设计模式-some basic knowledge</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Mediator/" class="archive-article-date">
-  	<time datetime="2021-07-18T15:49:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Mediator/">设计模式-Mediator</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Proxy/" class="archive-article-date">
-  	<time datetime="2021-07-03T07:10:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Proxy/">设计模式-Proxy</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/06/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-AbstractFactory/" class="archive-article-date">
-  	<time datetime="2021-06-17T16:10:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/06/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-AbstractFactory/">设计模式-AbstractFactory</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/06/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Factory/" class="archive-article-date">
-  	<time datetime="2021-06-05T08:38:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/06/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Factory/">设计模式-Factory</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/06/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-State/" class="archive-article-date">
-  	<time datetime="2021-06-03T16:07:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/06/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-State/">设计模式-State</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Observer/" class="archive-article-date">
-  	<time datetime="2021-05-25T16:13:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Observer/">设计模式-Observer</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Decorator/" class="archive-article-date">
-  	<time datetime="2021-05-24T16:06:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Decorator/">设计模式-Decorator</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2021/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2021/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2021/page/3/">3</a><a class="extend next" rel="next" href="/archives/2021/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +329,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
